@@ -176,12 +176,11 @@ public class MainActivity extends Activity {
             for (String key : locationMap2.keySet()) {
                 allKeys.add(key);
             }
-            double differenceWeighting = 10.0;
-            double addedAccessPointWeighting = 10.0;
-            double removedAccessPointWeighting = 10.0;
-
+            double differenceWeighting = 1000.0;
+            double missingPointValue = 300;
+            double missingPointDenominator = 4.0;
             double total = 0.0;
-            double threshold = 5.0;
+            double threshold = 20.0;
 
             for (String key : allKeys) {
                 double value1, value2;
@@ -189,14 +188,15 @@ public class MainActivity extends Activity {
                     value1 = locationMap1.get(key);
                     if (locationMap2.containsKey(key)) {
                         value2 = locationMap2.get(key);
-                        total += differenceWeighting * Math.abs((value2 - value1) / value1);
                     } else {
-                        total += removedAccessPointWeighting / Math.abs(value1);
+                        value1 = Math.abs(value1);
+                        value2 = (missingPointValue + value1) / missingPointDenominator;
                     }
                 } else {
-                    value2 = locationMap2.get(key);
-                    total += addedAccessPointWeighting / Math.abs(value2);
+                    value2 = Math.abs(locationMap2.get(key));
+                    value1 = (missingPointValue + value2) / missingPointDenominator;
                 }
+                total += differenceWeighting * Math.abs((value2 - value1) / (value1 * value1));
             }
             TextView debugTextView = (TextView) findViewById(R.id.location_debug);
             debugTextView.setText(total + " / " + threshold);
