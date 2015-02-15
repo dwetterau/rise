@@ -1,4 +1,4 @@
-package com.dwett.getup;
+package com.dwett.rise;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
