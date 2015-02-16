@@ -3,9 +3,12 @@ package com.dwett.rise;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.dwett.rise.camera.Preview;
+import com.dwett.rise.camera.ScanTask;
 
 
 public class MainActivity extends Activity {
@@ -23,7 +26,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
 
         cameraPreview = new Preview(this);
-        ((FrameLayout) findViewById(R.id.cameraPreview)).addView(cameraPreview);
+        // Add the camera preview at the beginning of the frame layout so it's under the status
+        ((FrameLayout) findViewById(R.id.cameraPreview)).addView(cameraPreview, 0);
 
         initializeHandlers();
     }
@@ -39,6 +43,10 @@ public class MainActivity extends Activity {
     }
 
     private void initializeHandlers() {
-        //Button setLocationButton = (Button) findViewById(R.id.set_location);
+        Button scanButton = (Button) findViewById(R.id.scanButton);
+        TextView scanStatusTextView = (TextView) findViewById(R.id.scanStatus);
+
+        // TODO: Should I save this somewhere?
+        new ScanTask(scanButton, scanStatusTextView);
     }
 }
