@@ -4,29 +4,9 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:weightSum="1">
-    <TextView
-            android:id="@+id/wifi_status"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Scanning wifi..."
-            />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Acquiring location..."
-            android:id="@+id/location_status" android:layout_gravity="center_horizontal"
-            />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text=""
-            android:id="@+id/location_debug" android:layout_gravity="center_horizontal"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Set Location"
-            android:id="@+id/set_location" android:layout_gravity="center_horizontal|bottom"/>
+    <FrameLayout android:id="@+id/cameraPreview"
+        android:layout_weight="1" android:layout_width="fill_parent"
+        android:layout_height="0dp">
+    </FrameLayout>
 </LinearLayout>
 
