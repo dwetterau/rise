@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Camera;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -25,6 +26,9 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
         surfaceHolder = this.getHolder();
         surfaceHolder.addCallback(this);
+
+        setFocusable(true);
+        setFocusableInTouchMode(true);
     }
 
     public void attachCamera() {
@@ -72,6 +76,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
             parameters.setPreviewSize(w, h);
             camera.setParameters(parameters);
             camera.startPreview();
+            camera.autoFocus(null);
         }
     }
 
@@ -87,5 +92,15 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         Paint p = new Paint(Color.RED);
         canvas.drawText("Preview", canvas.getWidth() / 2, canvas.getHeight() / 2, p);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (camera != null) {
+                camera.autoFocus(null);
+            }
+        }
+        return true;
     }
 }
