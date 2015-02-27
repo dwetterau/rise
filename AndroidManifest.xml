@@ -8,12 +8,21 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus"/>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="com.dwett.rise.MainActivity"
+        <activity android:name=".MainActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ScanActivity"
+                  android:label="Scan"
+                  android:parentActivityName=".MainActivity"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name=".SCAN_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

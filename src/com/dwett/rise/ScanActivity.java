@@ -3,7 +3,6 @@ package com.dwett.rise;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -12,8 +11,12 @@ import android.widget.TextView;
 import com.dwett.rise.camera.Preview;
 import com.dwett.rise.camera.ScanTask;
 
+/**
+ * @author david
+ */
+public class ScanActivity extends Activity {
 
-public class MainActivity extends Activity {
+    private Preview cameraPreview;
 
     /**
      * Called when the activity is first created.
@@ -23,7 +26,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.scan);
+
+        cameraPreview = new Preview(this);
+        // Add the camera preview at the beginning of the frame layout so it's under the status
+        ((FrameLayout) findViewById(R.id.cameraPreview)).addView(cameraPreview, 0);
+
+        initializeHandlers();
     }
 
     @Override
@@ -36,8 +45,11 @@ public class MainActivity extends Activity {
         super.onPause();
     }
 
-    public void startScan(View view) {
-        Intent intent = new Intent(this, ScanActivity.class);
-        startActivity(intent);
+    private void initializeHandlers() {
+        Button scanButton = (Button) findViewById(R.id.scanStartButton);
+        TextView scanStatusTextView = (TextView) findViewById(R.id.scanStatus);
+
+        // TODO: Should I save this somewhere?
+        new ScanTask(scanButton, scanStatusTextView);
     }
 }

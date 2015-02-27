@@ -19,7 +19,7 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder surfaceHolder;
 
-    private static Camera camera = null;
+    protected static Camera camera = null;
 
     public Preview(Context context) {
         super(context);

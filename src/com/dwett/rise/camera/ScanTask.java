@@ -20,14 +20,16 @@ public class ScanTask implements OnClickListener {
         this.statusTextView = statusTextView;
 
         // Add this as the listener for the button
-        Log.d("ScanTask", "Adding listener now...");
         this.scanButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == scanButton.getId()) {
-            Log.d("ScanTask", "Button pressed!!");
+            if (Preview.camera != null) {
+                Preview.camera.autoFocus(null);
+            }
+
             new ScanForSmile().execute("");
         }
     }

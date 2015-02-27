@@ -4,25 +4,21 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:weightSum="1">
-    <FrameLayout android:id="@+id/cameraPreview"
-        android:layout_weight="1" android:layout_width="fill_parent"
-        android:layout_height="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/scanStatus"
-            android:layout_gravity="center" />
-    </FrameLayout>
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock"
+        android:layout_gravity="center_horizontal"
+        android:textSize="50sp"
+        android:format12Hour="h:mm a" />
 
     <Button
-        android:layout_width="fill_parent"
-        android:layout_height="63dp"
-        android:text="Scan!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scanButtonText"
         android:id="@+id/scanButton"
-        android:layout_gravity="center_horizontal"
-        android:enabled="true" />
-
+        android:layout_weight="0.04"
+        android:onClick="startScan"/>
 </LinearLayout>
 
