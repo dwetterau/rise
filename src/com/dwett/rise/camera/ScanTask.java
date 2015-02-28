@@ -2,7 +2,6 @@ package com.dwett.rise.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -110,20 +109,12 @@ public class ScanTask implements OnClickListener {
             int centerX = w >> 1;
             int centerY = h >> 1;
 
-            // Starting in the center, fire rays off at 360 degree angles and look
-            // for a thin line of a different color.
-            // We want to see the pattern: no match, match, no match, match, no match
-            //                    state =  0         1      0         1      0
-            //                  changes =  0         1      2         3      4
-            // any deviation and we return false;
-            int state = 0;
-            int changes = 0;
-            RayResult last;
-            RayResult current = null;
-            for (double angle = 0.0; angle < 2 * Math.PI; angle += Math.PI / 180.0) {
-                last = current;
-                current = new RayResult();
+            RayResult[] results = new RayResult[4];
+            int index = 0;
+            for (double angle = 0.0; angle < 2 * Math.PI; angle += Math.PI / 2.0) {
+                RayResult current = new RayResult();
 
+                // Traverse the ray
                 // Traverse the ray and build the current ray result
                 double a = 0.0;
                 boolean inInterval = false;
@@ -138,16 +129,16 @@ public class ScanTask implements OnClickListener {
                     if (!isValid(newX, newY, w, h)) {
                         break;
                     }
-                    
+
                     int thisColor = bitmap.getPixel(newX, newY);
-                    
+
                     if (baseColor != -1) {
                         // Compare and see if the same
                         if (!colorMatches(baseColor, thisColor)) {
                             if (!inInterval) {
                                 // We are now in an interval
                                 inInterval = true;
-                                startInterval = currentA;
+                                startInterval = thisColor;
                             }
                         } else {
                             // Back to the base color
@@ -155,7 +146,7 @@ public class ScanTask implements OnClickListener {
                                 // We were in an interval
                                 inInterval = false;
                                 if (currentA - startInterval > INTERVAL_SIZE_THRESHOLD) {
-                                    current.addInterval(new Interval(startInterval, currentA - 1));
+                                    current.addInterval(new Interval(startInterval, thisColor));
                                 }
                             }
                         }
@@ -168,32 +159,31 @@ public class ScanTask implements OnClickListener {
                     a += AMPLITUDE_GRANULARITY;
                 }
 
-                // We have finished constructing the current RayResult, compare it to the last one
-                if (last == null) {
-                    // This is the first RayResult, continue
-                    continue;
-                }
-                List<Interval> matchingIntervals = current.matches(last);
-                if (matchingIntervals.size() > 0) {
-                    // We are in a line segment, check state and update if we switch
-                    if (state == 0) {
-                        // We need to switch
-                        state = 1;
-                        changes++;
-                    }
-                } else {
-                    // We are no longer in a line segment, check state and update if we switch
-                    if (state == 1) {
-                        state = 0;
-                        changes++;
-                    }
-                }
-                if (changes > 4) {
-                    return false;
-                }
+                results[index++] = current;
             }
-            Log.d("ScanTask", "end state & changes " + state + " " + changes);
-            return state == 0 && changes == 4;
+
+            Log.d("ScanTask", Arrays.toString(results));
+
+            // First assert that 0 and 2 match on at least one interval
+            List<Interval> topAndBottom = results[0].matches(results[2]);
+            if (topAndBottom.size() == 0) {
+                Log.d("ScanTask", "Top and bottom did not match.");
+                return false;
+            }
+
+            RayResult combined = new RayResult(topAndBottom);
+
+            // Now assert that the top and bottom intervals do not match the sides
+            if (combined.matches(results[1]).size() > 0) {
+                Log.d("ScanTask", "Combined and right did match.");
+                return false;
+            }
+            if (combined.matches(results[3]).size() > 0) {
+                Log.d("ScanTask", "Combined and bottom did match.");
+                return false;
+            }
+            Log.d("ScanTask", "Smile detected.");
+            return true;
         }
         
         protected boolean colorMatches(int color1, int color2) {
@@ -212,6 +202,11 @@ public class ScanTask implements OnClickListener {
 
             public RayResult() {
                 lines = new LinkedList<Interval>();
+            }
+
+            public RayResult(List<Interval> lines) {
+                this();
+                this.lines.addAll(lines);
             }
 
             /**
@@ -248,24 +243,24 @@ public class ScanTask implements OnClickListener {
 
         private class Interval {
 
-            // The amount intervals are required to overlap
-            private static final int REQUIRED_OVERLAP = 1;
+            RGBColor color1;
+            RGBColor color2;
 
-            int start;
-            int end;
-
-            public Interval(int start, int end) {
-                this.start = start;
-                this.end = end;
+            public Interval(int color1, int color2) {
+                this.color1 = new RGBColor(color1);
+                this.color2 = new RGBColor(color2);
             }
 
             public boolean overlaps(Interval interval) {
-                return REQUIRED_OVERLAP <=
-                        Math.min(interval.end, this.end) - Math.max(interval.start, this.start);
+                // If some pair of colors matches, use that
+                return this.color1.matches(interval.color1) ||
+                        this.color1.matches(interval.color2) ||
+                        this.color2.matches(interval.color1) ||
+                        this.color2.matches(interval.color2);
             }
 
             public String toString() {
-                return "[" + start + ", " + end + "]";
+                return "[" + color1 + ", " + color2 + "]";
             }
         }
 
