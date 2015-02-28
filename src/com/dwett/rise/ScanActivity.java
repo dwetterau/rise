@@ -50,6 +50,6 @@ public class ScanActivity extends Activity {
         TextView scanStatusTextView = (TextView) findViewById(R.id.scanStatus);
 
         // TODO: Should I save this somewhere?
-        new ScanTask(scanButton, scanStatusTextView);
+        new ScanTask(scanButton, scanStatusTextView, this);
     }
 }

@@ -3,6 +3,7 @@ package com.dwett.rise;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.dwett.rise.camera.ScanTask;
 
 
 public class MainActivity extends Activity {
+
+    private static final int SCAN_FOR_SMILE_REQUEST = 1;
 
     /**
      * Called when the activity is first created.
@@ -38,6 +41,21 @@ public class MainActivity extends Activity {
 
     public void startScan(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SCAN_FOR_SMILE_REQUEST);
+    }
+
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SCAN_FOR_SMILE_REQUEST) {
+            processScanResult(resultCode, data);
+        }
+    }
+
+    private void processScanResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            Log.d("MainActivity", "got result from scan, face found");
+        } else {
+            Log.d("MainActivity", "got result from scan, face not found");
+        }
     }
 }

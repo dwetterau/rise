@@ -1,5 +1,7 @@
 package com.dwett.rise.camera;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.dwett.rise.ScanActivity;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -21,13 +25,15 @@ public class ScanTask implements OnClickListener {
 
     Button scanButton;
     TextView statusTextView;
+    ScanActivity activity;
 
-    public ScanTask(Button scanButton, TextView statusTextView) {
+    public ScanTask(Button scanButton, TextView statusTextView, ScanActivity activity) {
         this.scanButton = scanButton;
         this.statusTextView = statusTextView;
 
         // Add this as the listener for the button
         this.scanButton.setOnClickListener(this);
+        this.activity = activity;
     }
 
     @Override
@@ -92,9 +98,9 @@ public class ScanTask implements OnClickListener {
             boolean foundSmile = findSmile(bitmap);
 
             if (foundSmile) {
-                return "Found smile!";
+                return "success";
             } else {
-                return "Didn't find smile :(";
+                return "failure";
             }
         }
 
@@ -291,8 +297,15 @@ public class ScanTask implements OnClickListener {
 
         @Override
         protected void onPostExecute(String result) {
-            statusTextView.setText(result);
-            scanButton.setEnabled(true);
+            if (result.equals("success")) {
+                statusTextView.setText("Found smile!");
+                Intent intent = new Intent();
+                activity.setResult(Activity.RESULT_OK, intent);
+                activity.finish();
+            } else {
+                statusTextView.setText("Didn't find smile :(");
+                scanButton.setEnabled(true);
+            }
         }
 
         @Override
