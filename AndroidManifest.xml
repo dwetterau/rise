@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".alarm.AlarmDetailsActivity"
+            android:label="AddAlarm"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name=".ADD_ALARM_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ScanActivity"
                   android:label="Scan"
                   android:parentActivityName=".MainActivity"

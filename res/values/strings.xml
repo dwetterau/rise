@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Rise</string>
     <string name="scanButtonText">Scan!</string>
+    <string name="addAlarmText">Add Alarm</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dwett.rise.alarm.AlarmDetailsActivity;
 import com.dwett.rise.camera.Preview;
 import com.dwett.rise.camera.ScanTask;
 
@@ -42,6 +43,11 @@ public class MainActivity extends Activity {
     public void startScan(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
         startActivityForResult(intent, SCAN_FOR_SMILE_REQUEST);
+    }
+
+    public void addAlarm(View view) {
+        Intent intent = new Intent(this, AlarmDetailsActivity.class);
+        startActivity(intent);
     }
 
     @Override
