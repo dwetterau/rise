@@ -16,6 +16,6 @@ public class AlarmDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.alarmDetails);
+        setContentView(R.layout.alarm_details);
     }
 }
