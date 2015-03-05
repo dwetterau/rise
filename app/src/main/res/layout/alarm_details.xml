@@ -3,12 +3,13 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:weightSum="1">
+              android:weightSum="1"
+    android:transitionGroup="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="25dp">
 
         <TimePicker
             android:id="@+id/alarmDetailsTimePicker"
@@ -24,16 +25,215 @@
             android:layout_below="@+id/alarmDetailsTimePicker"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:hint="@string/details_alarm_name"
-            android:ems="10" />
+            android:hint="@string/detailsAlarmName"
+            android:ems="10"
+            android:singleLine="true" />
+
+        <View
+            android:id="@+id/divider1"
+            style="@style/Divider"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/alarmDetailsName" />
+
+        <TextView
+            android:id="@+id/alarmDetailsRepeatWeeklyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/divider1"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsRepeatWeekly" />
 
         <View
             android:id="@+id/divider2"
             style="@style/Divider"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/alarmDetailsName" />
+            android:layout_below="@+id/alarmDetailsRepeatWeeklyLabel" />
 
+        <CheckBox
+            android:id="@+id/alarmDetailsRepeatWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsRepeatWeeklyLabel"
+            android:layout_alignBottom="@+id/alarmDetailsRepeatWeeklyLabel"
+            android:layout_alignEnd="@+id/divider2"
+            android:checked="true" />
 
+        <TextView
+            android:id="@+id/alarmDetailsSundayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/divider2"
+            android:layout_below="@+id/divider2"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsSunday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsMondayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsSundayLabel"
+            android:layout_below="@+id/alarmDetailsSundayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsMonday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsTuesdayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsMondayLabel"
+            android:layout_below="@+id/alarmDetailsMondayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsTuesday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsWednesdayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsTuesdayLabel"
+            android:layout_below="@+id/alarmDetailsTuesdayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsWednesday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsThursdayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsWednesdayLabel"
+            android:layout_below="@+id/alarmDetailsWednesdayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsThursday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsFridayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsThursdayLabel"
+            android:layout_below="@+id/alarmDetailsThursdayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsFriday"/>
+
+        <TextView
+            android:id="@+id/alarmDetailsSaturdayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/alarmDetailsFridayLabel"
+            android:layout_below="@+id/alarmDetailsFridayLabel"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/detailsSaturday"/>
+
+        <CheckBox
+            android:id="@+id/alarmDetailsSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsSundayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsSundayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsMondayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsMondayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsTuesdayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsTuesdayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsWednesdayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsWednesdayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsThursdayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsThursdayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsFridayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsFridayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/alarmDetailsSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarmDetailsSaturdayLabel"
+            android:layout_alignBottom="@+id/alarmDetailsSaturdayLabel"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <View
+            android:id="@+id/divider3"
+            style="@style/Divider"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/alarmDetailsSaturdayLabel" />
+
+        <LinearLayout
+            android:id="@+id/alarmDetailsRingtoneContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/divider3"
+            android:background="@drawable/view_touch_selector"
+            android:orientation="vertical"
+            android:onClick="openRingtonePicker">
+
+            <TextView
+                android:id="@+id/alarmDetailsToneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/detailsAlarmTone"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/alarmDetailsToneSelection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="@string/detailsAlarmToneDefault"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider4"
+            style="@style/Divider"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/alarmDetailsRingtoneContainer" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider4"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsAlarmSave"
+            android:id="@+id/alarmDetailsSaveButton"
+            android:onClick="saveAlarmDetails"/>
     </RelativeLayout>
 </ScrollView>
 

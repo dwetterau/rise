@@ -3,5 +3,16 @@
     <string name="app_name">Rise</string>
     <string name="scanButtonText">Scan!</string>
     <string name="addAlarmText">Add Alarm</string>
-    <string name="details_alarm_name">Alarm name</string>
+    <string name="detailsAlarmName">Alarm name</string>
+    <string name="detailsRepeatWeekly">Repeat weekly</string>
+    <string name="detailsSunday">Sunday</string>
+    <string name="detailsMonday">Monday</string>
+    <string name="detailsTuesday">Tuesday</string>
+    <string name="detailsWednesday">Wednesday</string>
+    <string name="detailsThursday">Thursday</string>
+    <string name="detailsFriday">Friday</string>
+    <string name="detailsSaturday">Saturday</string>
+    <string name="detailsAlarmTone">Alarm tone</string>
+    <string name="detailsAlarmToneDefault">Select an alarm tone</string>
+    <string name="detailsAlarmSave">Save alarm</string>
 </resources>
