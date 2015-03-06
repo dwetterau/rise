@@ -1,23 +1,29 @@
 package com.dwett.rise;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
+import com.dwett.rise.alarm.AlarmDBHelper;
 import com.dwett.rise.alarm.AlarmDetailsActivity;
-import com.dwett.rise.camera.Preview;
-import com.dwett.rise.camera.ScanTask;
+import com.dwett.rise.alarm.AlarmListAdapter;
+import com.dwett.rise.alarm.AlarmModel;
+
+import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
     private static final int SCAN_FOR_SMILE_REQUEST = 1;
+    private static final int ALARM_DETAILS_REQUEST = 2;
+
+    public static final String EXTRA_ALARM_DETAILS_ID = "alarmDetailsId";
+
+    private AlarmListAdapter alarmListAdapter;
+    private AlarmDBHelper dbHelper;
 
     /**
      * Called when the activity is first created.
@@ -28,6 +34,16 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.main);
+        this.initializeAlarmList();
+    }
+
+    private void initializeAlarmList() {
+        this.dbHelper = new AlarmDBHelper(this);
+        List<AlarmModel> alarmModelList = dbHelper.getAllAlarms();
+
+        this.alarmListAdapter = new AlarmListAdapter(this, alarmModelList);
+
+        setListAdapter(this.alarmListAdapter);
     }
 
     @Override
@@ -40,20 +56,36 @@ public class MainActivity extends Activity {
         super.onPause();
     }
 
+    public void setAlarmEnabled(long id, boolean isEnabled) {
+        AlarmModel model = dbHelper.getAlarm(id);
+        model.setEnabled(isEnabled);
+        dbHelper.updateAlarm(model);
+
+        alarmListAdapter.setAlarmModelList(dbHelper.getAllAlarms());
+        alarmListAdapter.notifyDataSetChanged();
+    }
+
+    public void editAlarmDetails(long id) {
+        Intent intent = new Intent(this, AlarmDetailsActivity.class);
+        intent.putExtra(EXTRA_ALARM_DETAILS_ID, id);
+        startActivityForResult(intent, ALARM_DETAILS_REQUEST);
+    }
+
     public void startScan(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
         startActivityForResult(intent, SCAN_FOR_SMILE_REQUEST);
     }
 
     public void addAlarm(View view) {
-        Intent intent = new Intent(this, AlarmDetailsActivity.class);
-        startActivity(intent);
+        editAlarmDetails(-1L);
     }
 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SCAN_FOR_SMILE_REQUEST) {
             processScanResult(resultCode, data);
+        } else if (requestCode == ALARM_DETAILS_REQUEST) {
+            processAlarmDetailsResult(resultCode, data);
         }
     }
 
@@ -62,6 +94,13 @@ public class MainActivity extends Activity {
             Log.d("MainActivity", "got result from scan, face found");
         } else {
             Log.d("MainActivity", "got result from scan, face not found");
+        }
+    }
+
+    private void processAlarmDetailsResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            this.alarmListAdapter.setAlarmModelList(this.dbHelper.getAllAlarms());
+            this.alarmListAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -14,6 +14,10 @@
         android:textSize="50sp"
         android:format12Hour="h:mm a" />
 
+    <ListView android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
