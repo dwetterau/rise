@@ -10,6 +10,7 @@ import android.view.Window;
 import com.dwett.rise.alarm.AlarmDBHelper;
 import com.dwett.rise.alarm.AlarmDetailsActivity;
 import com.dwett.rise.alarm.AlarmListAdapter;
+import com.dwett.rise.alarm.AlarmManagerHelper;
 import com.dwett.rise.alarm.AlarmModel;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class MainActivity extends ListActivity {
         AlarmModel model = dbHelper.getAlarm(id);
         model.setEnabled(isEnabled);
         dbHelper.updateAlarm(model);
+
+        AlarmManagerHelper.setAlarms(this);
 
         alarmListAdapter.setAlarmModelList(dbHelper.getAllAlarms());
         alarmListAdapter.notifyDataSetChanged();

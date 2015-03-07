@@ -121,6 +121,9 @@ public class AlarmDetailsActivity extends Activity {
     public void saveAlarmDetails(View view) {
         populateAlarmDetails();
 
+        // Cancel all pending alarms
+        AlarmManagerHelper.cancelAlarms(this);
+
         // Save the alarm to the database
         AlarmDBHelper dbHelper = new AlarmDBHelper(this);
         if (alarmDetails.getId() < 0) {
@@ -128,6 +131,9 @@ public class AlarmDetailsActivity extends Activity {
         } else {
             dbHelper.updateAlarm(alarmDetails);
         }
+
+        // Set all of the alarms again
+        AlarmManagerHelper.setAlarms(this);
 
         // End the activity
         setResult(RESULT_OK);
