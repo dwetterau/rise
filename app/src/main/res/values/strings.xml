@@ -15,6 +15,7 @@
     <string name="detailsAlarmTone">Alarm tone</string>
     <string name="detailsAlarmToneDefault">Select an alarm tone</string>
     <string name="detailsAlarmSave">Save alarm</string>
+    <string name="detailsAlarmDelete">Delete alarm</string>
     <string name="alarmItemSunday">S</string>
     <string name="alarmItemMonday">M</string>
     <string name="alarmItemTuesday">T</string>

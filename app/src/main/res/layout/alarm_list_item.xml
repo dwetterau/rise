@@ -25,6 +25,9 @@
             android:layout_toStartOf="@+id/alarmItemToggle"
             android:layout_toEndOf="@+id/alarmItemTime"
             android:text="Medium Text"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ToggleButton

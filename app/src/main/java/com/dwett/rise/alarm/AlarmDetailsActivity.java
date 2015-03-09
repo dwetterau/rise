@@ -23,6 +23,7 @@ public class AlarmDetailsActivity extends Activity {
     protected static final int RINGTONE_REQUEST = 1;
 
     private AlarmModel alarmDetails;
+    private AlarmDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class AlarmDetailsActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.alarm_details);
+        dbHelper = new AlarmDBHelper(this);
 
         long id = getIntent().getExtras().getLong(MainActivity.EXTRA_ALARM_DETAILS_ID);
         initializeAlarmDetails(id);
@@ -128,7 +130,6 @@ public class AlarmDetailsActivity extends Activity {
         AlarmManagerHelper.cancelAlarms(this);
 
         // Save the alarm to the database
-        AlarmDBHelper dbHelper = new AlarmDBHelper(this);
         if (alarmDetails.getId() < 0) {
             dbHelper.createAlarm(alarmDetails);
         } else {
@@ -139,6 +140,14 @@ public class AlarmDetailsActivity extends Activity {
         AlarmManagerHelper.setAlarms(this);
 
         // End the activity
+        setResult(RESULT_OK);
+        super.finish();
+    }
+
+    public void deleteAlarm(View view) {
+        if (alarmDetails.getId() != -1) {
+            dbHelper.deleteAlarm(alarmDetails.getId());
+        }
         setResult(RESULT_OK);
         super.finish();
     }

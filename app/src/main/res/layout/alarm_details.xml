@@ -231,6 +231,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider4"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/detailsAlarmDelete"
+            android:id="@+id/alarmDetailsDeleteButton"
+            android:onClick="deleteAlarm"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alarmDetailsDeleteButton"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/detailsAlarmSave"
             android:id="@+id/alarmDetailsSaveButton"
             android:onClick="saveAlarmDetails"/>
