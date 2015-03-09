@@ -75,9 +75,12 @@ public class AlarmDetailsActivity extends Activity {
             CheckBox checkBoxSaturday = (CheckBox) findViewById(R.id.alarmDetailsSaturday);
             checkBoxSaturday.setChecked(alarmDetails.getRepeatingDay(AlarmModel.SATURDAY));
 
-            TextView selectionText = (TextView) findViewById(R.id.alarmDetailsToneSelection);
-            selectionText.setText(
-                   RingtoneManager.getRingtone(this, alarmDetails.getAlarmTone()).getTitle(this));
+            if (alarmDetails.getAlarmTone() != null) {
+                TextView selectionText = (TextView) findViewById(R.id.alarmDetailsToneSelection);
+                selectionText.setText(
+                        RingtoneManager.getRingtone(this, alarmDetails.getAlarmTone())
+                                .getTitle(this));
+            }
         }
     }
 

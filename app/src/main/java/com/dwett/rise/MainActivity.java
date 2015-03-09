@@ -3,7 +3,6 @@ package com.dwett.rise;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -18,8 +17,7 @@ import java.util.List;
 
 public class MainActivity extends ListActivity {
 
-    private static final int SCAN_FOR_SMILE_REQUEST = 1;
-    private static final int ALARM_DETAILS_REQUEST = 2;
+    private static final int ALARM_DETAILS_REQUEST = 1;
 
     public static final String EXTRA_ALARM_DETAILS_ID = "alarmDetailsId";
 
@@ -74,29 +72,14 @@ public class MainActivity extends ListActivity {
         startActivityForResult(intent, ALARM_DETAILS_REQUEST);
     }
 
-    public void startScan(View view) {
-        Intent intent = new Intent(this, ScanActivity.class);
-        startActivityForResult(intent, SCAN_FOR_SMILE_REQUEST);
-    }
-
     public void addAlarm(View view) {
         editAlarmDetails(-1L);
     }
 
-    @Override
-    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SCAN_FOR_SMILE_REQUEST) {
-            processScanResult(resultCode, data);
-        } else if (requestCode == ALARM_DETAILS_REQUEST) {
-            processAlarmDetailsResult(resultCode, data);
-        }
-    }
 
-    private void processScanResult(int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Log.d("MainActivity", "got result from scan, face found");
-        } else {
-            Log.d("MainActivity", "got result from scan, face not found");
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ALARM_DETAILS_REQUEST) {
+                processAlarmDetailsResult(resultCode, data);
         }
     }
 

@@ -27,12 +27,5 @@
         android:layout_weight="0.04"
         android:onClick="addAlarm"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/scanButtonText"
-        android:id="@+id/scanButton"
-        android:layout_weight="0.04"
-        android:onClick="startScan"/>
 </LinearLayout>
 

@@ -16,12 +16,11 @@ import java.util.List;
 public class AlarmManagerHelper extends BroadcastReceiver {
 
     // The string attribute names for creating the alarm service
-    private static final String ID = "id";
-    private static final String NAME = "name";
-    private static final String TIME_HOUR = "timeHour";
-    private static final String TIME_MINUTE = "timeMinute";
-    private static final String TONE = "alarmTone";
-
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String TIME_HOUR = "timeHour";
+    public static final String TIME_MINUTE = "timeMinute";
+    public static final String TONE = "alarmTone";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -109,7 +108,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         intent.putExtra(NAME, model.getName());
         intent.putExtra(TIME_HOUR, model.getTimeHour());
         intent.putExtra(TIME_MINUTE, model.getTimeMinute());
-        intent.putExtra(TONE, model.getAlarmTone());
+        intent.putExtra(TONE, model.getAlarmTone().toString());
 
         return PendingIntent.getService(
                 context, (int) model.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);

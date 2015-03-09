@@ -22,4 +22,6 @@
     <string name="alarmItemThursday">T</string>
     <string name="alarmItemFriday">F</string>
     <string name="alarmItemSaturday">S</string>
+    <string name="alarmAlert">Alarm!</string>
+    <string name="alarmDefaultName">Alarm name</string>
 </resources>
