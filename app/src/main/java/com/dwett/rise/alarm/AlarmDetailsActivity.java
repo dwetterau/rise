@@ -146,7 +146,13 @@ public class AlarmDetailsActivity extends Activity {
 
     public void deleteAlarm(View view) {
         if (alarmDetails.getId() != -1) {
+            // Cancel all pending alarms
+            AlarmManagerHelper.cancelAlarms(this);
+
             dbHelper.deleteAlarm(alarmDetails.getId());
+
+            // Set all the alarms again
+            AlarmManagerHelper.setAlarms(this);
         }
         setResult(RESULT_OK);
         super.finish();
