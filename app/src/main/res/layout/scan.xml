@@ -13,16 +13,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/scanStatus"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="@string/scanTapToScan"/>
     </FrameLayout>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="63dp"
-        android:text="@string/scanButtonText"
-        android:id="@+id/scanStartButton"
-        android:layout_gravity="center_horizontal"
-        android:enabled="true" />
 
 </LinearLayout>
 

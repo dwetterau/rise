@@ -46,10 +46,10 @@ public class ScanActivity extends Activity {
     }
 
     private void initializeHandlers() {
-        Button scanButton = (Button) findViewById(R.id.scanStartButton);
+        FrameLayout previewView = (FrameLayout) findViewById(R.id.cameraPreview);
         TextView scanStatusTextView = (TextView) findViewById(R.id.scanStatus);
 
         // TODO: Should I save this somewhere?
-        new ScanTask(scanButton, scanStatusTextView, this);
+        new ScanTask(previewView, scanStatusTextView, this);
     }
 }

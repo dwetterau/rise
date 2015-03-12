@@ -25,4 +25,5 @@
     <string name="alarmItemSaturday">S</string>
     <string name="alarmAlert">Alarm!</string>
     <string name="alarmDefaultName">Alarm name</string>
+    <string name="scanTapToScan">Tap to scan</string>
 </resources>

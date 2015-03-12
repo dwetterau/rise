@@ -93,14 +93,4 @@ public class Preview extends SurfaceView implements SurfaceHolder.Callback {
         Paint p = new Paint(Color.RED);
         canvas.drawText("Preview", canvas.getWidth() / 2, canvas.getHeight() / 2, p);
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (camera != null) {
-                camera.autoFocus(null);
-            }
-        }
-        return true;
-    }
 }

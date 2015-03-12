@@ -7,9 +7,11 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.dwett.rise.ScanActivity;
@@ -23,25 +25,27 @@ import java.util.List;
  */
 public class ScanTask implements OnClickListener {
 
-    Button scanButton;
+    FrameLayout previewView;
     TextView statusTextView;
     ScanActivity activity;
+    boolean scanInProgress;
 
-    public ScanTask(Button scanButton, TextView statusTextView, ScanActivity activity) {
-        this.scanButton = scanButton;
+    public ScanTask(FrameLayout previewView, TextView statusTextView, ScanActivity activity) {
+        this.previewView = previewView;
         this.statusTextView = statusTextView;
 
         // Add this as the listener for the button
-        this.scanButton.setOnClickListener(this);
+        this.previewView.setOnClickListener(this);
         this.activity = activity;
+        this.scanInProgress = false;
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == scanButton.getId()) {
+        if (!scanInProgress && view.getId() == previewView.getId()) {
             // There has to be a camera preview, focus it and upon finish, take a picture
             if (Preview.camera != null) {
-                scanButton.setEnabled(false);
+                scanInProgress = true;
                 statusTextView.setText("Scanning...");
                 Preview.camera.autoFocus(new Camera.AutoFocusCallback() {
                     @Override
@@ -304,7 +308,7 @@ public class ScanTask implements OnClickListener {
                 activity.finish();
             } else {
                 statusTextView.setText("Didn't find smile :(");
-                scanButton.setEnabled(true);
+                scanInProgress = false;
             }
         }
 
