@@ -26,4 +26,7 @@
     <string name="alarmAlert">Alarm!</string>
     <string name="alarmDefaultName">Alarm name</string>
     <string name="scanTapToScan">Tap to scan</string>
+    <string name="scanConfirmExit">Are you sure you want to exit without scanning? :(</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

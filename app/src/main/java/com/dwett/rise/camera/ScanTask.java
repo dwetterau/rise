@@ -303,9 +303,7 @@ public class ScanTask implements OnClickListener {
         protected void onPostExecute(String result) {
             if (result.equals("success")) {
                 statusTextView.setText("Found smile!");
-                Intent intent = new Intent();
-                activity.setResult(Activity.RESULT_OK, intent);
-                activity.finish();
+                activity.foundSmileExit(true);
             } else {
                 statusTextView.setText("Didn't find smile :(");
                 scanInProgress = false;

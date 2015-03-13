@@ -137,6 +137,8 @@ public class AlarmScreenActivity extends Activity {
             dismissAlarm();
         } else {
             Log.d("MainActivity", "got result from scan, face not found");
+            // They chose to exit out of the scanning, must have agreed to the confirmation dialogue
+            dismissAlarm();
         }
     }
 

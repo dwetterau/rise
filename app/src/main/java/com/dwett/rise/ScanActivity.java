@@ -1,8 +1,11 @@
 package com.dwett.rise;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -51,5 +54,27 @@ public class ScanActivity extends Activity {
 
         // TODO: Should I save this somewhere?
         new ScanTask(previewView, scanStatusTextView, this);
+    }
+
+    public void foundSmileExit(boolean foundSmile) {
+        Intent intent = new Intent();
+        this.setResult(Activity.RESULT_OK, intent);
+        super.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Build an alert that they want to exit the scanner without scanning :(
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.scanConfirmExit)
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        foundSmileExit(false);
+                    }
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 }
