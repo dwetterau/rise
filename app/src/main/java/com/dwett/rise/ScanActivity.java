@@ -71,6 +71,8 @@ public class ScanActivity extends Activity {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Be sure to clean up the camera before exiting
+                        Preview.stopPreviewAndFreeCamera();
                         foundSmileExit(false);
                     }
                 })
