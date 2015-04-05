@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlarmScreenActivity"
-                  android:label="SlarmScreen"
+                  android:label="AlarmScreen"
                   android:parentActivityName=".MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>

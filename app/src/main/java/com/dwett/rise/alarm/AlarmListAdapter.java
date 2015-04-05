@@ -58,7 +58,15 @@ public class AlarmListAdapter extends BaseAdapter {
         }
         AlarmModel model = (AlarmModel) this.getItem(position);
         TextView textTime = (TextView) convertView.findViewById(R.id.alarmItemTime);
-        textTime.setText(String.format("%02d : %02d", model.getTimeHour(), model.getTimeMinute()));
+        int h = model.getTimeHour();
+        int m = model.getTimeMinute();
+        String period;
+        if (h < 12) {
+            period = "am";
+        } else {
+            period = "pm";
+        }
+        textTime.setText(String.format("%d : %02d %s", h % 12, m, period));
 
         TextView textName = (TextView) convertView.findViewById(R.id.alarmItemName);
         textName.setText(model.getName());
